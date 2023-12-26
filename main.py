@@ -20,11 +20,13 @@ app.mount("/static", StaticFiles(directory="templates"))
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
+    http_protocol = request.headers.get("x-forwarded-proto", "http")
+    ws_protocol = "wss" if http_protocol == "https" else "ws"
     return templates.TemplateResponse(
         "index.html", {
             "request": request,
-            "http_protocol": request.headers.get("x-forwarded-proto", "http"),
-            "ws_protocol": "wss" if http_protocol == "https" else "ws",
+            "http_protocol": http_protocol,
+            "ws_protocol": ws_protocol,
             "server_run": request.url.netloc
         }
     )
