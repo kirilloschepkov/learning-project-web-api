@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         parent.removeChild(this)
         input.disabled = true
 
-        ws = new WebSocket(`ws://0.0.0.0:8000/ws/${client_name}`)
+        ws = new WebSocket(`wss://0.0.0.0:8000/ws/${client_name}`)
         ws.addEventListener('message', handleWsClick);
     });
 
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let input = document.getElementById("messageText")
-    document.querySelector('#form'), addEventListener('submit', function sendMessage(event) {
+    document.querySelector('#form').addEventListener('submit', function sendMessage(event) {
         event.preventDefault()
 
         ws.send(input.value)

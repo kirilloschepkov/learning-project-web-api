@@ -17,17 +17,17 @@ templates = Jinja2Templates(directory="templates")
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="templates"))
 
+HOST = "0.0.0.0"
+PORT = 8000
 
 @app.get("/", response_class=HTMLResponse)
-async def read_root(request: Request):
-    http_protocol = request.headers.get("x-forwarded-proto", "http")
-    ws_protocol = "wss" if http_protocol == "https" else "ws"
+async def root(request: Request):
     return templates.TemplateResponse(
         "index.html", {
             "request": request,
-            "http_protocol": http_protocol,
-            "ws_protocol": ws_protocol,
-            "server_run": request.url.netloc
+            "http_protocol": "https",
+            "ws_protocol": "wss",
+            "server_run": f'{HOST}:{PORT}'
         }
     )
 
@@ -37,4 +37,4 @@ app.include_router(router_subjects)
 app.include_router(router_posts)
 
 if __name__ == '__main__':
-    uvicorn.run('main:app', host='0.0.0.0', port=8000, reload=True)
+    uvicorn.run('main:app', host=HOST, port=PORT, reload=True)
