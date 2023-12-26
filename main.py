@@ -24,7 +24,7 @@ async def read_root(request: Request):
         "index.html", {
             "request": request,
             "http_protocol": request.headers.get("x-forwarded-proto", "http"),
-            "ws_protocol": "ws",
+            "ws_protocol": "wss" if http_protocol == "https" else "ws",
             "server_run": request.url.netloc
         }
     )
