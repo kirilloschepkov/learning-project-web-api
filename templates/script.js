@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         parent.removeChild(this)
         input.disabled = true
 
-        ws = new WebSocket(`${ws_protocol}://${server}/ws/${client_name}`)
+        ws = new WebSocket(`${ws_protocol}://${server}/ws/${client_name}`, 'websocket')
         ws.addEventListener('message', handleWsClick);
     });
 
