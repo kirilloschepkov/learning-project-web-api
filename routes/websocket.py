@@ -12,7 +12,7 @@ async def websocket_endpoint(websocket: WebSocket, name: str):
     try:
         while True:
             data = await websocket.receive_text()
-            await manager.send_personal_message(f"Вы отправили сообщение: {data}", websocket)
+            # await manager.send_personal_message(f"Вы отправили сообщение: {data}", websocket)
             await manager.broadcast(f"{name}: {data}")
     except WebSocketDisconnect:
         manager.disconnect(websocket)

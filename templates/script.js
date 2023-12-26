@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
         appendMessage(event.data)
     }
 
-    document.querySelector('#btn-connect').addEventListener('click', function createWs() {
-        const input = document.querySelector("#ws-name")
+    document.querySelector('#btn').addEventListener('click', function createWs() {
+        const input = document.querySelector("#name")
         const client_name = input.value
 
         const parent = this.parentNode
