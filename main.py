@@ -20,13 +20,14 @@ app.mount("/static", StaticFiles(directory="templates"))
 HOST = "0.0.0.0"
 PORT = 8000
 
+
 @app.get("/", response_class=HTMLResponse)
 async def root(request: Request):
+    http_protocol = request.headers.get("x-forwarded-proto", "http")
     return templates.TemplateResponse(
         "index.html", {
             "request": request,
-            "http_protocol": "https",
-            "ws_protocol": "wss",
+            "ws_protocol": "wss" if http_protocol == "https" else "ws",
             "server_run": f'{HOST}:{PORT}'
         }
     )

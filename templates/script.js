@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
         appendMessage(event.data)
     }
 
-    document.querySelector('#btn').addEventListener('click', function createWs() {
+    document.querySelector('#btn').addEventListener('click', function () {
         const input = document.querySelector("#name")
         const client_name = input.value
 
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         parent.removeChild(this)
         input.disabled = true
 
-        ws = new WebSocket(`wss://0.0.0.0:8000/ws/${client_name}`)
+        ws = new WebSocket(`${ws_protocol}://${server}/ws/${client_name}`)
         ws.addEventListener('message', handleWsClick);
     });
 
